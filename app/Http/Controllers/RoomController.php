@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-
+use App\Models\Category;
 use App\Models\Rooms;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\File;
@@ -20,17 +20,22 @@ class RoomController extends Controller
     }
     public function edit($id)
     {
+      
+        $room = Rooms::find($id); // Fetch the single room by its ID
+        
+        return view('rooms.edit',compact('room'));
 
     }
     public function update(Request $request ,$id)
     {
-        {
+        //dd($request->all());
+        
             $data = $request->validate([
                 'name' => 'required',
                 'description' => 'required',
                 'price' => 'required|integer',
                 'stock' => 'required|integer',
-                'room_no' => 'required',
+                'room_no' => 'integer',
                 'photopath' => 'image',
             ]);
             $room = Rooms::find($id);
@@ -38,14 +43,13 @@ class RoomController extends Controller
             if($request->hasFile('photopath')){
                 $photoname = time().'.'.$request->photopath->extension();
                 $request->photopath->move(public_path('images/rooms'), $photoname);
-                //delete old photo
-                File::delete(public_path('images/rooms/'.$room->photopath));
-                // unlink(public_path('images/products/'.$product->photopath));
+               
+                 unlink(public_path('image/rooms/'.$room->photopath));
                 $data['photopath'] = $photoname;
             }
             $room->update($data);
             return redirect()->route('rooms.index')->with('success','Product updated successfully.');
-        }
+        
 
     }
     

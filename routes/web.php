@@ -31,7 +31,7 @@ Route::get('/rooms',[RoomController::class,'index'])->name('rooms.index');
 Route::get('/rooms/create',[RoomController::class,'create'])->name('rooms.create');
 Route::post('/rooms/store',[RoomController::class,'store'])->name('rooms.store');
 Route::get('/rooms/{id}/edit',[RoomController::class,'edit'])->name('rooms.edit');
-Route::post('/rooms/update',[RoomController::class,'update'])->name('rooms.update');
+Route::post('/rooms/{id}/update',[RoomController::class,'update'])->name('rooms.update');
 Route::get('/rooms/{id}/delete',[RoomController::class,'delete'])->name('rooms.delete');
 
 Route::get('/dashboard', function () {

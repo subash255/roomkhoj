@@ -27,8 +27,8 @@
                     <td class="border p-3"> <img src="{{asset('image/rooms/'.$room->photopath)}}" class="w-24" alt=""></td>
                     
                     <td class="border p-3">
-                        <a href="" class="bg-blue-500 text-white p-2 rounded-lg">Edit</a>
-                        <a href="" class="bg-red-500 text-white p-2 rounded-lg">Delete</a>
+                        <a href="{{route('rooms.edit',$room->id)}}" class="bg-blue-500 text-white p-2 rounded-lg">Edit</a>
+                        <a href="{{route('rooms.delete')}" class="bg-red-500 text-white p-2 rounded-lg">Delete</a>
                         <a href="" class="bg-red-500 text-white p-2 rounded-lg">View</a>
 
                     </td>

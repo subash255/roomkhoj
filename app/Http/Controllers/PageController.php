@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Rooms;
 use Illuminate\Http\Request;
 
 class PageController extends Controller
@@ -9,7 +10,8 @@ class PageController extends Controller
     
         public function home()
         {
-            return view ('welcome');
+            $rooms=Rooms::all();
+            return view ('welcome', compact('rooms'));
         }
         public function about()
         {
