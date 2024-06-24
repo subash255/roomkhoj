@@ -33,15 +33,30 @@ class RegisteredUserController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:'.User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'photopath' => 'required|image',
+            'dob' => 'required',
+            'phonenumber' => 'required',
+            
         ]);
+
+
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'photopath' => $request->photopath,
+            'dob' => $request->dob,
+            'phonenumber' => $request->phonenumber,
+
+
         ]);
+        $photoname = time().'.'.$request->photopath->extension();
+    $request->photopath->move(public_path('image/rooms'),$photoname);
+            $user['photopath'] = $photoname;
 
         event(new Registered($user));
+
 
         Auth::login($user);
 

@@ -46,8 +46,10 @@ Route::middleware('auth')->group(function () {
 
 Route::get('/users/index',[UserController::class,'index'])->name('users.index');
 
-Route::get('users/profile',[UserController::class,'profile'])->name('users.profile');
-
+Route::get('/profile/{id}',[UserController::class,'profile'])->name('users.profile');
+Route::get('/room',[UserController::class,'room'])->name('users.room');
+Route::get('/edit/{id}',[UserController::class,'edit'])->name('users.edit');
+Route::post('/update/{id}',[UserController::class,'update'])->name('users.update');
 
 require __DIR__.'/auth.php';
 
