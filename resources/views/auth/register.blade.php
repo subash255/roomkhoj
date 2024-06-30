@@ -38,19 +38,26 @@
                         {{$message}}
                     </div>
                 @enderror
-                    <div class="mb-4">
-                        <input type="password" name="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"required autocomplete="new-password">
-                    </div>
-                    @error('password')
-                    <div class="text-red-500 mt-2 text-sm">
-                        {{$message}}
-                    </div>
-                @enderror
-                    <div class="mb-4">
-                        <input type="password" name="confirm_password" placeholder="Confirm Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required autocomplete="new-password">
-                    </div>
+                <div class="mb-4">
+        <input type="password" name="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required autocomplete="new-password">
+        @error('password')
+        <div class="text-red-500 mt-2 text-sm">
+            {{ $message }}
+        </div>
+        @enderror
+    </div>
+
+    <div class="mb-4">
+        <input type="password" name="password_confirmation" placeholder="Confirm Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required autocomplete="new-password">
+    </div>
+                    @error('password_confirmation')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                        @enderror
+
                     <div class="flex mb-4">
-                        <input type="text" name="phone" placeholder="Phone Number" class="w-1/2 p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+                        <input type="text" name="phonenumber" placeholder="Phone Number" class="w-1/2 p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
                         <input type="date" name="dob" placeholder="Date of Birth" class="w-1/2 p-3 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
                     </div>
                     <div class="mb-4">
@@ -65,5 +72,6 @@
             </div>
         </div>
     </div>
+   
 </body>
 </html>

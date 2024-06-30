@@ -8,7 +8,7 @@ use App\Http\Controllers\RoomController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
-Route::get ('dashboard',[DashboardController::class,'index'])->name('dashboard');
+
 
 Route::get('/',[PageController::class,'home'])->name('home');
 
@@ -19,7 +19,7 @@ Route::get('/about',function () {
 Route::get ('/rent',function () {
     return view('rent');
 });
-
+Route::get('/dashboard', function () {
 Route::get('/categories',[CategoryController::class,'index'])->name('categories.index');
 Route::get('/categories/create',[CategoryController::class,'create'])->name('categories.create');
 Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
@@ -34,8 +34,8 @@ Route::get('/rooms/{id}/edit',[RoomController::class,'edit'])->name('rooms.edit'
 Route::post('/rooms/{id}/update',[RoomController::class,'update'])->name('rooms.update');
 Route::get('/rooms/{id}/delete',[RoomController::class,'delete'])->name('rooms.delete');
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
+
+Route::get ('dashboard',[DashboardController::class,'index'])->name('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
