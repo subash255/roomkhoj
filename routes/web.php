@@ -33,10 +33,10 @@ Route::post('/rooms/store',[RoomController::class,'store'])->name('rooms.store')
 Route::get('/rooms/{id}/edit',[RoomController::class,'edit'])->name('rooms.edit');
 Route::post('/rooms/{id}/update',[RoomController::class,'update'])->name('rooms.update');
 Route::get('/rooms/{id}/delete',[RoomController::class,'delete'])->name('rooms.delete');
-
-
 Route::get ('dashboard',[DashboardController::class,'index'])->name('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
+
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

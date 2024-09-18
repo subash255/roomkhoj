@@ -21,7 +21,7 @@ class RoomController extends Controller
     public function edit($id)
     {
       
-        $room = Rooms::find($id); // Fetch the single room by its ID
+        $room = Rooms::find($id); 
         
         return view('rooms.edit',compact('room'));
 

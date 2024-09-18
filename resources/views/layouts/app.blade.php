@@ -36,8 +36,9 @@
                     <a href="" class="text-xl block pl-4 p-2 m-2 border-b border-amber-600 hover:bg-amber-600 hover:text-white"></a>
                    <form id="logout-form" method="post" action="{{route('logout')}}">
                     @csrf
-                    </form>
                    <a  href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit() "class="text-xl block pl-4 p-2 m-2 border-b border-amber-600 hover:bg-amber-600 hover:text-white  ">Logout</a>
+
+                    </form>
                    
                 </div>
             </div>

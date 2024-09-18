@@ -3,6 +3,7 @@ namespace App\Models\User;
 
 namespace App\Http\Controllers;
 
+use App\Models\Rooms;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -12,14 +13,15 @@ class UserController extends Controller
     public function index()
     {
         $user=Auth::user('id');
-    return view('users.index',compact('user'));
+        $rooms=Rooms::all();
+    return view('users.index',compact('user','rooms'));
     }
     public function profile($id)
     {
         $user=Auth::user();  
          return view('users.profile', compact('user'));
     }
-    public function room()
+    public function room($id)
     {
         
 

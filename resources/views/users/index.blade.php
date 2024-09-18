@@ -55,7 +55,11 @@
                     <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Rooms</a>
                 </li>
                 <li>
-                    <a href="/logout" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</a>
+                    <form action="{{route('logout')}}" method="post">
+                        @csrf
+                    <button  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</button>
+
+                    </form>
                 </li>
                 
                 
@@ -136,29 +140,27 @@
 
     <!-- Properties -->
     <section class="properties container mx-auto py-16" id="properties">
+    
         <div class="text-center mb-8">
             <span class="text-lg font-semibold text-cyan-500">Recent</span>
             <h2 class="text-3xl font-bold">Our Featured Rooms</h2>
             <p class="text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, laborum!</p>
         </div>
-        <div class="properties-container flex flex-wrap gap-8">
-            <div class="box p-4 bg-white rounded-lg shadow-md">
-                <img src="img/room.jpg" alt="room image" class="w-full h-48 object-cover rounded-t-lg">
-                <div class="p-4">
-                    <h3 class="text-xl font-semibold mb-2">Room no:</h3>
-                    <div class="content">
-                        <div class="text mb-2">
-                            <h3 class="text-lg font-semibold">The Palace</h3>
-                            <p>Lorem ipsum dolor sit.</p>
-                        </div>
-                        <div class="icon mb-2">
-                            <a href="show.php" class="text-cyan-500">Show more</a>
-                        </div>
-                        <button class="bg-gray-500 text-white py-2 px-4 rounded-full">Rent</button>
+        <div class="grid grid-cols-3 gap-10 my-10 px-24">
+
+        @foreach($rooms as $room) 
+        
+        <div class="p-2 rounded-lg shadow">
+                <img src="{{asset('image/rooms/'.$room->photopath)}}" alt="room" class="w-full h-64 object-cover">
+                <div class="p-2">
+                    <h2 class="text-xl font-semibold">Room No:{{$room->room_no}}</h2>
+                    <div class="flex justify-between items-center mt-4">
+                        <span class="text-xl font-thin">Rs. {{$room->price}}</span>
+                        <button class="bg-blue-500 text-white px-2 py-1 rounded-lg">Rent</button>
                     </div>
                 </div>
             </div>
-        </div>
+        @endforeach
     </section>
 
     <!-- About -->
