@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
+use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
@@ -33,7 +35,7 @@ Route::post('/rooms/store',[RoomController::class,'store'])->name('rooms.store')
 Route::get('/rooms/{id}/edit',[RoomController::class,'edit'])->name('rooms.edit');
 Route::post('/rooms/{id}/update',[RoomController::class,'update'])->name('rooms.update');
 Route::get('/rooms/{id}/delete',[RoomController::class,'delete'])->name('rooms.delete');
-Route::get ('dashboard',[DashboardController::class,'index'])->name('dashboard');
+Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 
@@ -44,13 +46,23 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
-Route::get('/users/index',[UserController::class,'index'])->name('users.index');
+Route::get('users/index',[UserController::class,'index'])->name('users.index');
 
 Route::get('/profile/{id}',[UserController::class,'profile'])->name('users.profile');
 Route::get('/room',[UserController::class,'room'])->name('users.room');
 Route::get('/edit/{id}',[UserController::class,'edit'])->name('users.edit');
 Route::post('/update/{id}',[UserController::class,'update'])->name('users.update');
+Route::post('users/{id}/book',[UserController::class,'book'])->name('users.book');
+
 
 require __DIR__.'/auth.php';
+Route::get('register', [RegisteredUserController::class, 'create'])
+                ->name('register');
+
+    Route::post('register', [RegisteredUserController::class, 'store']);
+
+    Route::get('login', [AuthenticatedSessionController::class, 'create'])
+                ->name('login');
+   Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
 

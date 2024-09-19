@@ -16,6 +16,17 @@ class UserController extends Controller
         $rooms=Rooms::all();
     return view('users.index',compact('user','rooms'));
     }
+
+    public function book($id)
+    {
+        $room = Rooms::find($id);
+
+      
+
+       
+        return view('users.book',compact('room'));
+    }
+    
     public function profile($id)
     {
         $user=Auth::user();  

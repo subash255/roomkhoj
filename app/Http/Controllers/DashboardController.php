@@ -7,16 +7,11 @@ use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    public function dashboard()
+    
     {
-        if(Auth::User()->usertype=='admin')
-
-    {
-        return view('dashboard');
-    }
-    else{
-        return view('users.index');
-    }
+        return view('/dashboard');
+   
     }
     
 }

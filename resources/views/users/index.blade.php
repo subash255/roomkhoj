@@ -156,7 +156,10 @@
                     <h2 class="text-xl font-semibold">Room No:{{$room->room_no}}</h2>
                     <div class="flex justify-between items-center mt-4">
                         <span class="text-xl font-thin">Rs. {{$room->price}}</span>
-                        <button class="bg-blue-500 text-white px-2 py-1 rounded-lg">Rent</button>
+                        <form action="{{ route('users.book', ['id' => $room->id] ) }}" method="post">
+                        @csrf
+                         <button class="bg-blue-500 text-white px-2 py-1 rounded-lg">Rent</button>
+                        </form>
                     </div>
                 </div>
             </div>
