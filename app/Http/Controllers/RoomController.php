@@ -84,7 +84,6 @@ $photoname = time().'.'.$request->photopath->extension();
     {
         $room = Rooms::find($id);
         File::delete(public_path('images/rooms/'.$room->photopath));
-        $room->delete();
         return redirect()->route('rooms.index')->with('success','rooms deleted successfully.');
     }
 
