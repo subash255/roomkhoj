@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\UseradminController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -21,7 +22,9 @@ Route::get('/about',function () {
 Route::get ('/rent',function () {
     return view('rent');
 });
-Route::get('/dashboard', function () {
+Route::get('/search',[PageController::class,'search'])->name('search');
+
+Route::middleware('auth')->group(function () {
 Route::get('/categories',[CategoryController::class,'index'])->name('categories.index');
 Route::get('/categories/create',[CategoryController::class,'create'])->name('categories.create');
 Route::post('/categories/store', [CategoryController::class, 'store'])->name('categories.store');
@@ -34,9 +37,9 @@ Route::get('/rooms/create',[RoomController::class,'create'])->name('rooms.create
 Route::post('/rooms/store',[RoomController::class,'store'])->name('rooms.store');
 Route::get('/rooms/{id}/edit',[RoomController::class,'edit'])->name('rooms.edit');
 Route::post('/rooms/{id}/update',[RoomController::class,'update'])->name('rooms.update');
-Route::get('/rooms/{id}/delete',[RoomController::class,'delete'])->name('rooms.delete');
-Route::get('/dashboard',[DashboardController::class,'dashboard'])->name('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::delete('/rooms/{id}',[RoomController::class,'delete'])->name('rooms.delete');
+Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+});
 
 
 
@@ -53,6 +56,14 @@ Route::get('/room',[UserController::class,'room'])->name('users.room');
 Route::get('/edit/{id}',[UserController::class,'edit'])->name('users.edit');
 Route::post('/update/{id}',[UserController::class,'update'])->name('users.update');
 Route::post('users/{id}/book',[UserController::class,'book'])->name('users.book');
+Route::post('users/search',[UserController::class,'search'])->name('users.search');
+
+
+Route::get('useradmin/index',[UseradminController::class,'index'])->name('useradmin.index');
+Route::get('/edit/{id}',[UseradminController::class,'edit'])->name('useradmin.edit');
+Route::post('/update/{id}',[UseradminController::class,'update'])->name('useradmin.update');
+
+
 
 
 require __DIR__.'/auth.php';

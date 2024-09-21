@@ -13,8 +13,8 @@
                 <tr class="bg-gray-200">
                     <th class="border p-3">Room no</th>
                     <th class="border p-3">Place</th>
-                    <th class="border p-3">price</th>
-                    <th class="border p-3">image</th>
+                    <th class="border p-3">Price</th>
+                    <th class="border p-3">Image</th>
                     <th class="border p-3">Action</th>
                 </tr>
             </thead>
@@ -24,16 +24,25 @@
                     <td class="border p-3">{{$room->name}}</td>
                     <td class="border p-3">{{$room->place}}</td>
                     <td class="border p-3">{{$room->price}}</td>
-                    <td class="border p-3"> <img src="{{asset('image/rooms/'.$room->photopath)}}" class="w-24" alt=""></td>
-                    
                     <td class="border p-3">
-                        <a href="{{route('rooms.edit',$room->id)}}" class="bg-blue-500 text-white p-2 rounded-lg">Edit</a>
-                        <a href="{{route('rooms.delete')}" class="bg-red-500 text-white p-2 rounded-lg">Delete</a>
-                        <a href="" class="bg-red-500 text-white p-2 rounded-lg">View</a>
+                        <img src="{{asset('image/rooms/'.$room->photopath)}}" class="w-24" alt="">
+                    </td>
+                    <td class="border p-3">
+                        <a href="{{route('rooms.edit', $room->id)}}" class="bg-blue-500 text-white p-2 rounded-lg">Edit</a>
 
+                        <form action="{{ route('rooms.delete', $room->id) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-500 text-white p-2 rounded-lg"
+                                    onclick="return confirm('Are you sure you want to delete this room?');">
+                                Delete
+                            </button>
+                        </form>
+
+                        <a href="" class="bg-green-500 text-white p-2 rounded-lg">View</a>
                     </td>
                 </tr>
-                @endforeach
+            @endforeach
             </tbody>
         </table>
     </div>

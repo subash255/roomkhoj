@@ -19,12 +19,16 @@ class UserController extends Controller
 
     public function book($id)
     {
-        $room = Rooms::find($id);
+        // Fetch the specific room by ID
+        $room = Rooms::findOrFail($id); // Using findOrFail to handle non-existing rooms
 
-      
+        // Fetch related rooms based on the same location, excluding the current room
+        $relatedRooms = Rooms::where('name', $room->name)
+                             ->where('id', '!=', $id)
+                             ->get();
 
-       
-        return view('users.book',compact('room'));
+        // Return the booking view with the room and related rooms data
+        return view('users.book', compact('room', 'relatedRooms'));
     }
     
     public function profile($id)
@@ -44,7 +48,7 @@ class UserController extends Controller
     }
     public function update(Request $request, $id)
     {
-        dd($request->all());
+       // dd($request->all());
         $user = User::find($id);
         $data = request()->validate([
             'name' => 'required',
@@ -65,5 +69,34 @@ class UserController extends Controller
             $user->update($data);
         
         return redirect()->route('users.index')->with('success','User updated successfully.');
+    }
+    public function search(Request $request)
+    {
+        // Get filter values from the request
+        $location = $request->input('location');
+        $min_price = $request->input('min_price');
+        $max_price = $request->input('max_price');
+
+        // Build the query
+        $query = Rooms::query();
+
+        // Apply filters
+        if ($location) {
+            $query->where('name', 'LIKE', "%{$location}%");
+        }
+
+        if ($min_price) {
+            $query->where('price', '>=', $min_price);
+        }
+
+        if ($max_price) {
+            $query->where('price', '<=', $max_price);
+        }
+
+        // Get the filtered properties
+        $properties = $query->get();
+
+        // Redirect to another page showing the results
+        return view('users.search', compact('properties'));
     }
 }

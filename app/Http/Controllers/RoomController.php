@@ -26,32 +26,51 @@ class RoomController extends Controller
         return view('rooms.edit',compact('room'));
 
     }
-    public function update(Request $request ,$id)
+    public function update(Request $request, $id)
     {
-        //dd($request->all());
-        
-            $data = $request->validate([
-                'name' => 'required',
-                'description' => 'required',
-                'price' => 'required|integer',
-                'stock' => 'required|integer',
-                'room_no' => 'integer',
-                'photopath' => 'image',
-            ]);
-            $room = Rooms::find($id);
-            $data['photopath'] = $room->photopath;
-            if($request->hasFile('photopath')){
-                $photoname = time().'.'.$request->photopath->extension();
-                $request->photopath->move(public_path('images/rooms'), $photoname);
-               
-                 unlink(public_path('image/rooms/'.$room->photopath));
-                $data['photopath'] = $photoname;
-            }
-            $room->update($data);
-            return redirect()->route('rooms.index')->with('success','Product updated successfully.');
-        
+    // Validate incoming request data
+    $data = $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required|string',
+        'price' => 'required|integer|min:0',
+        'stock' => 'required|integer|min:0',
+        'room_no' => 'nullable|integer',
+        'photopath' => 'nullable|image',  // Validate image file
+    ]);
 
+    // Find the room by ID, if not found, return an error
+    $room = Rooms::find($id);
+    if (!$room) {
+        return redirect()->route('rooms.index')->with('error', 'Room not found.');
     }
+
+    // Set the default photopath to the existing one
+    $data['photopath'] = $room->photopath;
+
+    // Check if a new image has been uploaded
+    if ($request->hasFile('photopath')) {
+        // Create a unique filename for the new image
+        $photoname = time() . '.' . $request->photopath->extension();
+        
+        // Move the new image to the public images directory
+        $request->photopath->move(public_path('image/rooms'), $photoname);
+        
+        // Delete the old image file, but only if it exists
+        if (file_exists(public_path('image/rooms/' . $room->photopath))) {
+            unlink(public_path('image/rooms/' . $room->photopath));
+        }
+
+        // Update the photopath to the new image
+        $data['photopath'] = $photoname;
+    }
+
+    // Update the room with the new data
+    $room->update($data);
+
+    // Redirect to rooms index with a success message
+    return redirect()->route('rooms.index')->with('success', 'Room updated successfully.');
+    }
+
     
 
 
@@ -82,7 +101,8 @@ $photoname = time().'.'.$request->photopath->extension();
 
     public function delete($id)
     {
-        $room = Rooms::find($id);
+        $room = Rooms::find($id); 
+        $room->delete();
         File::delete(public_path('images/rooms/'.$room->photopath));
         return redirect()->route('rooms.index')->with('success','rooms deleted successfully.');
     }
