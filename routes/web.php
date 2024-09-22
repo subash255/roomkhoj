@@ -23,6 +23,8 @@ Route::get ('/rent',function () {
     return view('rent');
 });
 Route::get('/search',[PageController::class,'search'])->name('search');
+Route::get('/showroom',[PageController::class,'showroom'])->name('showroom');
+Route::get('/moreroom',[PageController::class,'moreroom'])->name('moreroom');
 
 Route::middleware('auth')->group(function () {
 Route::get('/categories',[CategoryController::class,'index'])->name('categories.index');
@@ -49,14 +51,20 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+Route::middleware(['auth'])->group(function () {
 Route::get('users/index',[UserController::class,'index'])->name('users.index');
 
-Route::get('/profile/{id}',[UserController::class,'profile'])->name('users.profile');
+Route::get('users/profile/{id}',[UserController::class,'profile'])->name('users.profile');
 Route::get('/room',[UserController::class,'room'])->name('users.room');
-Route::get('/edit/{id}',[UserController::class,'edit'])->name('users.edit');
+Route::get('users/edit/{id}',[UserController::class,'edit'])->name('users.edit');
 Route::post('/update/{id}',[UserController::class,'update'])->name('users.update');
 Route::post('users/{id}/book',[UserController::class,'book'])->name('users.book');
 Route::post('users/search',[UserController::class,'search'])->name('users.search');
+Route::get('users/showroom',[UserController::class,'showroom'])->name('users.showroom');
+Route::get('users/moreroom',[UserController::class,'moreroom'])->name('users.moreroom');
+});
+
+
 
 
 Route::get('useradmin/index',[UseradminController::class,'index'])->name('useradmin.index');

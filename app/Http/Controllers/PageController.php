@@ -4,13 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Models\Rooms;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PageController extends Controller
 {
     
         public function home()
         {
-            $rooms=Rooms::all();
+            $rooms=Rooms::all()->take(6);
             return view ('welcome', compact('rooms'));
         }
         public function about()
@@ -52,5 +53,27 @@ class PageController extends Controller
         // Redirect to another page showing the results
         return view('search', compact('properties'));
     }
+    public function showroom()
+    {
+         
+
+        $rooms = Rooms::all()->groupBy('name')->sortKeys(); 
+        // $shows=Rooms::where('name', $rooms->name)->get();
+        $threeRooms = $rooms->flatMap(function ($roomGroup) {
+            return $roomGroup->take(1); // Change this if you want to take more from each group
+        })->take(3);
+       
+         return view('showroom', compact('rooms', 'threeRooms'));
+    }
+    public function moreroom(Request $request)
+{
+     
+    $name= $request->input('name');  // Get the location from the request
+
+    // Fetch rooms based on the location
+    $rooms = Rooms::where('name', $name)->get(); 
+
+    return view('moreroom', compact('rooms','name'));
+}
     
 }

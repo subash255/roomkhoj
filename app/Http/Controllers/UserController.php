@@ -13,7 +13,7 @@ class UserController extends Controller
     public function index()
     {
         $user=Auth::user('id');
-        $rooms=Rooms::all();
+        $rooms=Rooms::all()->take(6);
     return view('users.index',compact('user','rooms'));
     }
 
@@ -99,4 +99,26 @@ class UserController extends Controller
         // Redirect to another page showing the results
         return view('users.search', compact('properties'));
     }
+    public function showroom()
+    {
+        $user=Auth::user();  
+
+        $rooms = Rooms::all()->groupBy('name')->sortKeys(); 
+        // $shows=Rooms::where('name', $rooms->name)->get();
+        $threeRooms = $rooms->flatMap(function ($roomGroup) {
+            return $roomGroup->take(1); // Change this if you want to take more from each group
+        })->take(3);
+       
+         return view('users.showroom', compact('user','rooms', 'threeRooms'));
+    }
+    public function moreroom(Request $request)
+{
+    $user = Auth::user();  
+    $name= $request->input('name');  // Get the location from the request
+
+    // Fetch rooms based on the location
+    $rooms = Rooms::where('name', $name)->get(); 
+
+    return view('users.moreroom', compact('user', 'rooms','name'));
+}
 }

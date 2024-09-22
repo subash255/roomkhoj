@@ -140,31 +140,40 @@
 
     <!-- Properties -->
     <section class="properties container mx-auto py-16" id="properties">
-    
-        <div class="text-center mb-8">
-            <span class="text-lg font-semibold text-cyan-500">Recent</span>
-            <h2 class="text-3xl font-bold">Our Featured Rooms</h2>
-            <p class="text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, laborum!</p>
-        </div>
-        <div class="grid grid-cols-3 gap-10 my-10 px-24">
 
-        @foreach($rooms as $room) 
-        
-        <div class="p-2 rounded-lg shadow">
-                <img src="{{asset('image/rooms/'.$room->photopath)}}" alt="room" class="w-full h-64 object-cover">
+    <div class="text-center mb-8">
+        <span class="text-lg font-semibold text-cyan-500">Recent</span>
+        <h2 class="text-3xl font-bold">Our Featured Rooms</h2>
+        <p class="text-gray-600">Lorem ipsum dolor sit amet consectetur adipisicing elit. Odio, laborum!</p>
+    </div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 my-10 px-24">
+        @foreach($rooms as $room)
+            <div class="p-2 rounded-lg shadow hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="{{ asset('image/rooms/'.$room->photopath) }}" alt="room" class="w-full h-64 object-cover">
                 <div class="p-2">
-                    <h2 class="text-xl font-semibold">Room No:{{$room->room_no}}</h2>
+                    <h2 class="text-xl font-semibold">Room No: {{$room->room_no}}</h2>
                     <div class="flex justify-between items-center mt-4">
                         <span class="text-xl font-thin">Rs. {{$room->price}}</span>
-                        <form action="{{ route('users.book', ['id' => $room->id] ) }}" method="post">
-                        @csrf
-                         <button class="bg-blue-500 text-white px-2 py-1 rounded-lg">Rent</button>
+                        <form action="{{ route('users.book', ['id' => $room->id]) }}" method="post">
+                            @csrf
+                            <button class="bg-blue-500 text-white px-2 py-1 rounded-lg hover:bg-blue-600 transition duration-300">Rent</button>
                         </form>
                     </div>
                 </div>
             </div>
         @endforeach
-    </section>
+    </div>
+
+    <!-- Show More Button -->
+    <div class="flex justify-center mt-10">
+        <a href="{{ route('users.showroom') }}" class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition duration-300">
+            Show More Rooms
+        </a>
+    </div>
+
+</section>
+
 
     <!-- About -->
     <section class="about container mx-auto py-16 flex items-center" id="about">

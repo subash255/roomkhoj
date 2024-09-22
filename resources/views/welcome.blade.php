@@ -40,31 +40,36 @@
 
 
     <!-- Search for Rooms -->
-    <form action="{{ url('/search') }}" method="GET" class="container mx-auto py-8 px-4 bg-white rounded-lg shadow-md">
+    <form action="{{ url('/search') }}" method="GET" class="container mx-auto py-8 px-6 bg-white rounded-lg shadow-md">
         <h2 class="text-xl font-semibold text-center mb-4">Search for Rooms</h2>
-        <div class="space-y-4">
+
+        <!-- Wrap form elements in a grid -->
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+            <!-- Location Field -->
             <div>
                 <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
                 <input type="text" name="location" id="location" placeholder="Enter location"
                     class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
             </div>
 
-            <div class="grid grid-cols-2 gap-4">
-                <div>
-                    <label for="min_price" class="block text-sm font-medium text-gray-700">Min Price</label>
-                    <input type="number" name="min_price" id="min_price" placeholder="Min Price"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
-                </div>
-                <div>
-                    <label for="max_price" class="block text-sm font-medium text-gray-700">Max Price</label>
-                    <input type="number" name="max_price" id="max_price" placeholder="Max Price"
-                        class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
-                </div>
+            <!-- Min Price Field -->
+            <div>
+                <label for="min_price" class="block text-sm font-medium text-gray-700">Min Price</label>
+                <input type="number" name="min_price" id="min_price" placeholder="Min Price"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
             </div>
 
+            <!-- Max Price Field -->
+            <div>
+                <label for="max_price" class="block text-sm font-medium text-gray-700">Max Price</label>
+                <input type="number" name="max_price" id="max_price" placeholder="Max Price"
+                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
+            </div>
+
+            <!-- Search Button -->
             <div class="flex justify-center">
                 <button type="submit"
-                    class="w-64  bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                    class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500">
                     Search
                 </button>
             </div>
@@ -114,6 +119,11 @@
             </div>
             @endforeach
         </div>
+        <div class="flex justify-center mt-10">
+        <a href="{{ route('showroom') }}" class="bg-cyan-500 hover:bg-cyan-600 text-white font-semibold px-6 py-3 rounded-lg shadow-lg transition duration-300">
+            Show More Rooms
+        </a>
+    </div>
     </section>
 
     <!-- About -->
