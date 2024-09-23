@@ -15,20 +15,20 @@
 
 <body class="font-sans bg-gray-100 text-gray-900">
     <!-- Navbar -->
-    <header class="bg-cyan-500">
-        <div class="container mx-auto flex items-center justify-between p-4">
-            <!-- Logo -->
-            <a href="index.php" class="flex items-center">
-                <img src="https://st3.depositphotos.com/27847728/35061/v/1600/depositphotos_350616384-stock-illustration-abstract-letter-logo-design-vector.jpg" alt="RoomKhoj Logo" class="h-16">
-                <span class="ml-2 text-2xl font-bold text-white">RoomKhoj</span>
-            </a>
-            <!-- Nav List -->
-            <ul class="flex gap-6">
-                <li><a href="#home" class="text-white font-semibold">Dashboard</a></li>
-                <li><a href="/about" class="text-white font-semibold">About Us</a></li>
-                <li><a href="#" class="dropdown-arrow text-white font-semibold">Notifications</a></li>
-                <li><a href="#properties" class="text-white font-semibold">Rooms</a></li>
+    <header class="bg-cyan-600 shadow-lg">
+    <div class="container mx-auto flex items-center justify-between py-2">
+        <a href="{{route('users.index')}}" class="flex flex-col items-center">
+            <img src="{{asset('img/logo.png')}}" alt="RoomKhoj Logo" class="h-14 w-14 rounded-full border-2 border-white shadow-lg"> <!-- Smaller logo size -->
+            <span class="mt-1 text-lg font-bold text-white">RoomKhoj</span> <!-- Logo text adjusted -->
+        </a>
+        <nav>
+            <ul class="flex gap-8">
+                <li><a href="#home" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Home</a></li> <!-- Increased text size -->
+                <li><a href="/about" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">About Us</a></li>
+                <li><a href="#sales" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Rents</a></li>
+                <li><a href="#properties" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Rooms</a></li>
             </ul>
+        </nav>
 
             <div class="relative inline-block text-left">
                 <!-- Dropdown trigger image -->

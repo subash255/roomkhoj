@@ -8,42 +8,40 @@
     <title>Roomkhoj.com</title>
     <!-- Link to CSS -->
     <link rel="stylesheet" href="style.css">
+    <!-- Boxicons CDN -->
+<link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
+
     <!-- Box Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
 <body class="font-sans bg-gray-100 text-gray-900">
     <!-- Navbar -->
-    <header class="bg-cyan-500">
-        <div class="container mx-auto flex items-center justify-between p-4">
-            <!-- Logo -->
-            <a href="index.php" class="flex items-center">
-                <img src="https://st3.depositphotos.com/27847728/35061/v/1600/depositphotos_350616384-stock-illustration-abstract-letter-logo-design-vector.jpg" alt="RoomKhoj Logo" class="h-16">
-                <span class="ml-2 text-2xl font-bold text-white">RoomKhoj</span>
-            </a>
-            <!-- Nav List -->
-            <ul class="flex gap-6">
-                <li><a href="#home" class="text-white font-semibold">Dashboard</a></li>
-                <li><a href="/about" class="text-white font-semibold">About Us</a></li>
-                
-                 <li><a href="#" class="dropdown-arrow text-white font-semibold">Notifications</a></li>
-    
-                <li><a href="#properties" class="text-white font-semibold">Rooms</a></li>
+    <header class="bg-cyan-600 shadow-lg">
+    <div class="container mx-auto flex items-center justify-between py-2">
+        <a href="{{route('users.index')}}" class="flex flex-col items-center">
+            <img src="{{asset('img/logo.png')}}" alt="RoomKhoj Logo" class="h-14 w-14 rounded-full border-2 border-white shadow-lg"> <!-- Smaller logo size -->
+            <span class="mt-1 text-lg font-bold text-white">RoomKhoj</span> <!-- Logo text adjusted -->
+        </a>
+        <nav>
+            <ul class="flex gap-8">
+                <li><a href="#home" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Home</a></li> <!-- Increased text size -->
+                <li><a href="#about" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">About Us</a></li>
+                <li><a href="#sales" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Rents</a></li>
+                <li><a href="#properties" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Rooms</a></li>
             </ul>
-            
-        
+        </nav>
+       
         
           
           
-
-        
        
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
     <div class="relative inline-block text-left">
         <!-- Dropdown trigger image -->
-        <img id="dropdownDefaultButton" src="path/to/your/image.jpg" alt="Dropdown trigger" class="cursor-pointer w-10 h-10 rounded-full mr-8">
+        <img id="dropdownDefaultButton" src="{{asset('image/users/'.$user->photopath)}}" alt="Dropdown trigger" class="cursor-pointer w-10 h-10 rounded-full mr-8">
 
         <!-- Dropdown menu -->
         <div id="dropdown" class="absolute left-0 mt-2 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
@@ -99,21 +97,59 @@
         
     </header>
 
-    <!-- Dashboard -->
-    <section class="home container mx-auto py-16" id="home">
-        <div class="text-center">
-            <h1 class="text-5xl font-bold mb-4">Find Your Next <br>Perfect Place To <br>Live.</h1>
-            
-        </div>
+     <!-- Dashboard -->
+     <section class="home container mx-auto py-24 text-center relative" style="background-image: url('{{asset('img/home.jpg')}}'); background-size: cover; background-position: center;">
+    <div class="bg-black bg-opacity-50 h-full w-full absolute top-0 left-0"></div>
+    <h1 class="text-5xl font-bold text-white mb-4 drop-shadow relative">Find Your Next <br>Perfect Place To <br>Live.</h1>
     </section>
 
-    <div class="search container mx-auto my-8 p-4 bg-white rounded-lg shadow-md" id="searchForm">
-        <h3 class="text-xl font-semibold mb-4">SEARCH FOR ROOMS</h3>
-        <form method="post" action="search.php" class="flex">
-            <input type="search" id="addressInput" placeholder="Search your location" class="flex-1 py-2 px-4 border border-gray-300 rounded-l-lg" name="search">
-            <button class="btn1 bg-cyan-500 text-white py-2 px-4 rounded-r-lg" id="searchButton" name="submit">Search</button>
-        </form>
+
+    <!-- Search for Rooms -->
+    <form action="{{ url('users/search') }}" method="GET" class="container mx-auto py-8 px-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold text-center mb-4">Search for Rooms</h2>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <!-- Location Field -->
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Location</label>
+            <input type="text" name="name" id="location" placeholder="Enter location" required maxlength="255"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
+            @error('location')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Min Price Field -->
+        <div>
+            <label for="min_price" class="block text-sm font-medium text-gray-700">Min Price</label>
+            <input type="number" name="min_price" id="min_price" placeholder="Min Price" min="0"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
+            @error('min_price')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Max Price Field -->
+        <div>
+            <label for="max_price" class="block text-sm font-medium text-gray-700">Max Price</label>
+            <input type="number" name="max_price" id="max_price" placeholder="Max Price" min="0"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
+            @error('max_price')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Search Button -->
+        <div class="flex justify-center">
+            <button type="submit"
+                class="w-full bg-cyan-500 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                Search
+            </button>
+        </div>
     </div>
+</form>
+
+
 
     <section class="sales container mx-auto py-16" id="sales">
         <div class="flex justify-around">
@@ -178,13 +214,13 @@
     <!-- About -->
     <section class="about container mx-auto py-16 flex items-center" id="about">
         <div class="w-1/2 pr-8">
-            <img src="img/about.jpg" alt="About Us" class="rounded-lg shadow-md">
+            <img src="{{asset('img/p6.jpg')}}" alt="About Us" class="rounded-lg shadow-md">
         </div>
         <div class="w-1/2 pl-8">
             <span class="text-lg font-semibold text-cyan-500">About Us</span>
             <h2 class="text-3xl font-bold mb-4">We Provide The Best <br>Rooms For You!</h2>
             <p class="text-gray-600 mb-4">At RoomKhoj, we're more than just a room rental platform – we're your gateway to unforgettable experiences and hassle-free accommodations. Our passion for connecting travelers with comfortable and curated stays drives everything we do.</p>
-            <a href="/about" class="btn bg-cyan-500 text-white py-2 px-6 rounded-lg">Learn More</a>
+            <a href="{{route('users.about)}}" class="btn bg-cyan-500 text-white py-2 px-6 rounded-lg">Learn More</a>
         </div>
     </section>
 

@@ -14,83 +14,100 @@
 </head>
 
 <body class="font-sans bg-gray-100 text-gray-900">
+
     <!-- Navbar -->
-    <header class="bg-gradient-to-r from-cyan-500 to-blue-500 shadow-lg">
-        <div class="container mx-auto flex items-center justify-between py-4 px-6">
-            <!-- Logo -->
-            <a href="index.php" class="flex items-center">
-                <img src="https://st3.depositphotos.com/27847728/35061/v/1600/depositphotos_350616384-stock-illustration-abstract-letter-logo-design-vector.jpg"
-                    alt="RoomKhoj Logo" class="h-16">
-                <span class="ml-3 text-2xl font-bold text-white">RoomKhoj</span>
+    <header class="bg-cyan-600 shadow-lg">
+        <div class="container mx-auto flex items-center justify-between py-2">
+            <a href="{{route('users.index')}}" class="flex flex-col items-center">
+                <img src="{{asset('img/logo.png')}}" alt="RoomKhoj Logo" class="h-14 w-14 rounded-full border-2 border-white shadow-lg">
+                <span class="mt-1 text-lg font-bold text-white">RoomKhoj</span>
             </a>
-            <!-- Nav List -->
-            <ul class="flex gap-6">
-                <li><a href="#home" class="text-white font-semibold hover:text-gray-300">Dashboard</a></li>
-                <li><a href="/about" class="text-white font-semibold hover:text-gray-300">About Us</a></li>
-                <li><a href="#" class="text-white font-semibold hover:text-gray-300">Notifications</a></li>
-                <li><a href="#properties" class="text-white font-semibold hover:text-gray-300">Rooms</a></li>
-            </ul>
+            <nav>
+                <ul class="flex gap-8">
+                    <li><a href="{{Route('users.index')}}" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Home</a></li>
+                    <li><a href="{{Route('users.index/#about')}}" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">About Us</a></li>
+                    <li><a href="#sales" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Rents</a></li>
+                    <li><a href="#properties" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Rooms</a></li>
+                </ul>
+            </nav>
+            <div class="relative inline-block text-left">
+                <img id="dropdownDefaultButton" src="{{asset('image/users/'.$user->photopath)}}" alt="Dropdown trigger" class="cursor-pointer w-10 h-10 rounded-full mr-8">
+                <div id="dropdown" class="absolute left-0 mt-2 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44">
+                    <ul class="py-2 text-sm text-gray-700" aria-labelledby="dropdownDefaultButton">
+                        <li><a href="{{ route('users.profile',['id' => $user->id])}}" class="block px-4 py-2 hover:bg-gray-100">Profile</a></li>
+                        <li>
+                            <form action="{{route('logout')}}" method="post">
+                                @csrf
+                                <button class="block px-4 py-2 hover:bg-gray-100">Logout</button>
+                            </form>
+                        </li>
+                    </ul>
+                </div>
+            </div>
         </div>
     </header>
 
     <!-- Hero Section -->
-   <h1 class="text-3xl font-bold text-center mt-10">Book a Room</h1>
+    <h1 class="text-3xl font-bold text-center mt-10">Book a Room</h1>
+
+    <!-- Back Button -->
+    <div class="container mx-auto mt-6">
+        <a href="{{ route('users.index') }}" class="inline-block bg-gray-300 text-gray-800 px-4 py-2 rounded-md hover:bg-gray-400 transition duration-300">Back</a>
+    </div>
 
     <!-- Room Information Section -->
     <section class="container mx-auto mt-10 px-6">
-        <div class="bg-white rounded-lg shadow-lg overflow-hidden md:flex">
-            <!-- Room Image -->
-            <div class="w-full md:w-1/2">
+        
+         <div class="bg-white rounded-lg shadow-lg overflow-hidden md:flex">
+             <div class="w-full md:w-1/2">
                 <img src="{{ asset('image/rooms/' . $room->photopath) }}" alt="Room Image" class="w-full h-full object-cover">
-            </div>
-            <!-- Room Details -->
-            <div class="p-6 md:w-1/2">
-                
+            
+             </div>
+            
+        <div class="p-6 md:w-1/2">
+             
                 <p class="text-lg mb-2">Room No: <span class="font-semibold">{{ $room->room_no }}</span></p>
                 <p class="text-lg mb-2">Price: <span class="text-green-500 font-semibold">RS{{ $room->price }}</span></p>
-                <p class="text-lg mb-2">location: {{ $room->name }}</p>
-
+                <p class="text-lg mb-2">Location: {{ $room->name }}</p>
                 <p class="text-lg mb-2">Availability: <span class="{{ $room->stock > 0 ? 'text-green-500' : 'text-red-500' }}">{{ $room->stock > 0 ? 'Available' : 'Out of Stock' }}</span></p>
-
+                
                 <h4 class="text-xl font-semibold mt-4">Description</h4>
                 <p class="mt-2 text-gray-700">{{ $room->description }}</p>
-
-              
-
-                <!-- Call to action -->
+                
+                
                 <div class="mt-6">
-                    <a href="#"
-                        class="bg-gradient-to-r from-green-400 to-blue-500 text-white px-6 py-2 rounded-lg hover:from-green-500 hover:to-blue-600 transition ease-in-out duration-300">Book Now</a>
+                    <a href="#" class="bg-gradient-to-r from-green-400 to-blue-500 text-white px-6 py-2 rounded-lg hover:from-green-500 hover:to-blue-600 transition ease-in-out duration-300">Book Now</a>
                 </div>
             </div>
         </div>
 
     </section>
-    <!-- related rooms -->
-     <h1 class="text-3xl font-bold text-center mt-10">Related Rooms</h1>
-        <hr class="h-1 bg-amber-600 mb-8">
-        <div class="container mx-auto py-12">
-        <!-- Display Results -->
-        
+
+    <!-- Related Rooms -->
+    <h1 class="text-3xl font-bold text-center mt-10">Related Rooms</h1>
+    <hr class="h-1 bg-amber-600 mb-8">
+
     <section class="properties container mx-auto" id="properties">
-                <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 px-8">
-                    @foreach($relatedRooms as $related)
-                    <div class="bg-white rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition duration-300">
-                        <img src="{{ asset('image/rooms/'.$related->photopath) }}" alt="room" class="w-full h-64 object-cover rounded-t-lg">
-                        <div class="p-5">
-                            <h2 class="text-2xl font-semibold text-gray-800 mb-2">Room No: {{ $related->room_no }}</h2>
-                            <p class="text-gray-600 mb-4">Located in: {{ $related->name }}</p>
-                            <div class="flex justify-between items-center">
-                                <span class="text-xl font-semibold text-blue-500">Rs. {{ number_format($related->price) }}</span>
-                                <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Rent</button>
-                            </div>
-                        </div>
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-12 px-8">
+            @foreach($relatedRooms as $related)
+            <div class="bg-white rounded-lg shadow-md hover:shadow-lg transform hover:scale-105 transition duration-300">
+                <img src="{{ asset('image/rooms/'.$related->photopath) }}" alt="Room" class="w-full h-64 object-cover rounded-t-lg">
+                <div class="p-5">
+                    <h2 class="text-2xl font-semibold text-gray-800 mb-2">Room No: {{ $related->room_no }}</h2>
+                    <p class="text-gray-600 mb-4">Located in: {{ $related->name }}</p>
+                    <div class="flex justify-between items-center">
+                        <span class="text-xl font-semibold text-blue-500">Rs. {{ number_format($related->price) }}</span>
+                        <button class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300">Rent</button>
                     </div>
-                    @endforeach
                 </div>
-        </section>
+            </div>
+            @endforeach
+        </div>
+    </section>
 
     <!-- Footer -->
+
+
     <footer class="footer bg-gradient-to-r from-cyan-500 to-blue-500 py-16 text-white mt-10">
         <div class="container mx-auto flex justify-between px-6">
             <div>
@@ -132,7 +149,8 @@
     <div class="bg-gray-900 text-center py-4 text-gray-400">
         <p>&#169; 2024 RoomKhoj. All Rights Reserved</p>
     </div>
-
 </body>
+
+
 
 </html>

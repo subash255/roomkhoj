@@ -15,22 +15,20 @@
 
 <body class="font-sans bg-gray-100 text-gray-900">
     <!-- Navbar -->
-    <header class="bg-cyan-500">
-        <div class="container mx-auto flex items-center justify-between p-4">
-            <!-- Logo -->
-            <a href="index.php" class="flex items-center">
-                <img src="https://st3.depositphotos.com/27847728/35061/v/1600/depositphotos_350616384-stock-illustration-abstract-letter-logo-design-vector.jpg" alt="RoomKhoj Logo" class="h-16">
-                <span class="ml-2 text-2xl font-bold text-white">RoomKhoj</span>
-            </a>
-            <!-- Nav List -->
-            <ul class="flex gap-6">
-                <li><a href="#home" class="text-white font-semibold">Dashboard</a></li>
-                <li><a href="/about" class="text-white font-semibold">About Us</a></li>
-
-                <li><a href="#" class="dropdown-arrow text-white font-semibold">Notifications</a></li>
-
-                <li><a href="#properties" class="text-white font-semibold">Rooms</a></li>
+    <header class="bg-cyan-600 shadow-lg">
+    <div class="container mx-auto flex items-center justify-between py-2">
+        <a href="{{route('users.index')}}" class="flex flex-col items-center">
+            <img src="{{asset('img/logo.png')}}" alt="RoomKhoj Logo" class="h-14 w-14 rounded-full border-2 border-white shadow-lg"> <!-- Smaller logo size -->
+            <span class="mt-1 text-lg font-bold text-white">RoomKhoj</span> <!-- Logo text adjusted -->
+        </a>
+        <nav>
+            <ul class="flex gap-8">
+                <li><a href="#home" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Home</a></li> <!-- Increased text size -->
+                <li><a href="/about" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">About Us</a></li>
+                <li><a href="#sales" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Rents</a></li>
+                <li><a href="#properties" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Rooms</a></li>
             </ul>
+        </nav>
 
 
 
@@ -100,41 +98,49 @@
     </header>
 
     <!-- Search for Rooms -->
-    <form action="{{ url('/search') }}" method="GET" class="container mx-auto py-8 px-4 bg-white rounded-lg shadow-md">
-        <h2 class="text-xl font-semibold text-center mb-4">Search for Rooms</h2>
+    <form action="{{ url('users/search') }}" method="GET" class="container mx-auto py-8 px-6 bg-white rounded-lg shadow-md">
+    <h2 class="text-xl font-semibold text-center mb-4">Search for Rooms</h2>
 
-        <!-- Wrap form elements in a grid -->
-        <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
-            <!-- Location Field -->
-            <div>
-                <label for="location" class="block text-sm font-medium text-gray-700">Location</label>
-                <input type="text" name="location" id="location" placeholder="Enter location"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
-            </div>
-
-            <!-- Min Price Field -->
-            <div>
-                <label for="min_price" class="block text-sm font-medium text-gray-700">Min Price</label>
-                <input type="number" name="min_price" id="min_price" placeholder="Min Price"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
-            </div>
-
-            <!-- Max Price Field -->
-            <div>
-                <label for="max_price" class="block text-sm font-medium text-gray-700">Max Price</label>
-                <input type="number" name="max_price" id="max_price" placeholder="Max Price"
-                    class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
-            </div>
-
-            <!-- Search Button -->
-            <div class="flex justify-center">
-                <button type="submit"
-                    class="w-full bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500">
-                    Search
-                </button>
-            </div>
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">
+        <!-- Location Field -->
+        <div>
+            <label for="name" class="block text-sm font-medium text-gray-700">Location</label>
+            <input type="text" name="name" id="location" placeholder="Enter location" required maxlength="255"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
+            @error('location')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
         </div>
-    </form>
+
+        <!-- Min Price Field -->
+        <div>
+            <label for="min_price" class="block text-sm font-medium text-gray-700">Min Price</label>
+            <input type="number" name="min_price" id="min_price" placeholder="Min Price" min="0"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
+            @error('min_price')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Max Price Field -->
+        <div>
+            <label for="max_price" class="block text-sm font-medium text-gray-700">Max Price</label>
+            <input type="number" name="max_price" id="max_price" placeholder="Max Price" min="0"
+                class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-cyan-500 focus:ring-cyan-500 sm:text-sm">
+            @error('max_price')
+                <span class="text-red-500 text-xs">{{ $message }}</span>
+            @enderror
+        </div>
+
+        <!-- Search Button -->
+        <div class="flex justify-center">
+            <button type="submit"
+                class="w-full bg-cyan-500 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                Search
+            </button>
+        </div>
+    </div>
+</form>
 
 
 

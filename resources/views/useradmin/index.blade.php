@@ -26,11 +26,20 @@
                     <td class="border p-3">{{$user->name}}</td>
                     <td class="border p-3">{{$user->email}}</td>
                     <td class="border p-3">{{$user->dob}}</td>
-                    <td class="border p-3">{{$user->phone}}</td>
-                    <td  class="border p-3">img</td>
+                    <td class="border p-3">{{$user->phonenumber}}</td>
+                    <td class="border p-3">
+                        <img src="{{asset('image/users/'.$user->photopath)}}" class="w-24" alt="">
+                    </td>
                     <td class="border p-3">
                         <a href="{{route('useradmin.edit',$user->id)}}" class="bg-blue-500 text-white p-2 rounded-lg">Edit</a>
-                        <a href="" class="bg-red-500 text-white p-2 rounded-lg">Delete</a>
+                        <form action="{{ route('useradmin.delete', $user->id) }}" method="POST" style="display:inline-block;">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="bg-red-500 text-white p-2 rounded-lg"
+                                    onclick="return confirm('Are you sure you want to delete this user?');">
+                                Delete
+                            </button>
+                        </form>
                         <a href="" class="bg-red-500 text-white p-2 rounded-lg">View</a>
 
                     </td>
