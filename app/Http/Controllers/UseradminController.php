@@ -25,37 +25,6 @@ public function edit($id)
 //     // Find the user or fail if not found
 //     $user = User::findOrFail($id);
 
-//     // Validate user input
-//     $data = $request->validate([
-//         'name' => 'required|string|max:255',  // Name is required
-//         'email' => 'required|email|unique:users,email,' . $user->id,  // Email should be unique except for the current user
-//         'photopath' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',  // Photo is optional, max size 2MB
-//         'dob' => 'nullable|date',  // Optional date of birth
-//         'phonenumber' => 'nullable|string|max:15',  // Optional phone number
-//     ]);
-
-//     // If a new profile photo is uploaded, process it
-//     if ($request->hasFile('photopath')) {
-//         // Generate a unique name for the new photo
-//         $photoname = time() . '.' . $request->photopath->extension();
-
-//         // Move the new photo to the public/images/users directory
-//         $request->photopath->move(public_path('images/users'), $photoname);
-
-//         // Delete the old photo if it exists
-//         if ($user->photopath && file_exists(public_path('images/users/' . $user->photopath))) {
-//             unlink(public_path('images/users/' . $user->photopath));
-//         }
-
-//         // Update the photopath in the validated data array
-//         $data['photopath'] = $photoname;
-//     } else {
-//         // If no new photo is uploaded, retain the old photo path
-//         $data['photopath'] = $user->photopath;
-//     }
-
-//     // Update the user's record with the validated data
-//     $user->update($data);
 
 //     // Redirect back to the user list with a success message
 //     return redirect()->route('useradmin.index')->with('success', 'User updated successfully.');

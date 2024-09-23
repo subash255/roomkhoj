@@ -91,7 +91,6 @@
         </section>
 
     <!-- Footer -->
-
     <footer class="footer bg-gradient-to-r from-cyan-500 to-blue-500 py-16 text-white mt-10">
         <div class="container mx-auto flex justify-between px-6">
             <div>
