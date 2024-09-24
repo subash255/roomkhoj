@@ -40,11 +40,13 @@
 
     <!-- Dashboard -->
    
-<section class="home container mx-auto py-24 text-center relative" style="background-image: url('{{asset('img/home.jpg')}}'); background-size: cover; background-position: center;">
+    <section class="home w-full py-24 text-center relative">
+    <img src="{{ asset('img/home.jpg') }}" alt="Home Background" class="absolute inset-0 w-full h-full object-cover">
     <div class="bg-black bg-opacity-50 h-full w-full absolute top-0 left-0"></div>
     <h1 class="text-5xl font-bold text-white mb-4 drop-shadow relative">Find Your Next <br>Perfect Place To <br>Live.</h1>
     <a href="/register" class="btn bg-cyan-500 text-white py-2 px-6 rounded-lg hover:bg-cyan-700 transition relative">Sign Up</a>
 </section>
+<br>
 
     
 
@@ -96,24 +98,25 @@
 
     <!-- Sales Section -->
     <section class="sales container mx-auto py-16" id="sales">
-        <div class="flex justify-around">
-            <div class="box p-4 bg-white rounded-lg shadow-md text-center hover:shadow-lg transition">
-                <i class='bx bx-user text-4xl mb-4'></i>
-                <h3 class="text-xl font-semibold mb-2">Make Yourself Easy</h3>
-                <p class="text-gray-600">Find your dream room with ease and convenience.</p>
-            </div>
-            <div class="box p-4 bg-white rounded-lg shadow-md text-center hover:shadow-lg transition">
-                <i class='bx bx-desktop text-4xl mb-4'></i>
-                <h3 class="text-xl font-semibold mb-2">Start Your New Platform</h3>
-                <p class="text-gray-600">Join us and explore countless rental opportunities.</p>
-            </div>
-            <div class="box p-4 bg-white rounded-lg shadow-md text-center hover:shadow-lg transition">
-                <i class='bx bx-home-alt text-4xl mb-4'></i>
-                <h3 class="text-xl font-semibold mb-2">Enjoy Your New Rooms</h3>
-                <p class="text-gray-600">Comfort and affordability await you.</p>
-            </div>
+    <div class="flex justify-around gap-8"> <!-- Added gap-8 here -->
+        <div class="box p-4 bg-white rounded-lg shadow-md text-center hover:shadow-lg transition">
+            <i class='bx bx-user text-4xl mb-4'></i>
+            <h3 class="text-xl font-semibold mb-2">Make Yourself Easy</h3>
+            <p class="text-gray-600">Find your dream room with ease and convenience.</p>
         </div>
-    </section>
+        <div class="box p-4 bg-white rounded-lg shadow-md text-center hover:shadow-lg transition">
+            <i class='bx bx-desktop text-4xl mb-4'></i>
+            <h3 class="text-xl font-semibold mb-2">Start Your New Platform</h3>
+            <p class="text-gray-600">Join us and explore countless rental opportunities.</p>
+        </div>
+        <div class="box p-4 bg-white rounded-lg shadow-md text-center hover:shadow-lg transition">
+            <i class='bx bx-home-alt text-4xl mb-4'></i>
+            <h3 class="text-xl font-semibold mb-2">Enjoy Your New Rooms</h3>
+            <p class="text-gray-600">Comfort and affordability await you.</p>
+        </div>
+    </div>
+</section>
+
 
     <!-- Properties -->
     <section class="properties container mx-auto py-16" id="properties">

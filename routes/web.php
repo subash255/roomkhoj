@@ -2,13 +2,16 @@
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\RegisteredUserController;
+use App\Http\Controllers\BooksController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\SelectpaymentController;
 use App\Http\Controllers\UseradminController;
 use App\Http\Controllers\UserController;
+use App\Models\Selectpayment;
 use Illuminate\Support\Facades\Route;
 
 
@@ -65,11 +68,24 @@ Route::get('users/profile/{id}',[UserController::class,'profile'])->name('users.
 Route::get('/room',[UserController::class,'room'])->name('users.room');
 Route::get('users/edit/{id}',[UserController::class,'edit'])->name('users.edit');
 Route::post('/update/{id}',[UserController::class,'update'])->name('users.update');
-Route::post('users/{id}/book',[UserController::class,'book'])->name('users.book');
+Route::get('users/{id}/book',[UserController::class,'book'])->name('users.book');
 Route::post('users/search',[UserController::class,'search'])->name('users.search');
 Route::get('users/showroom',[UserController::class,'showroom'])->name('users.showroom');
 Route::get('users/moreroom',[UserController::class,'moreroom'])->name('users.moreroom');
 Route::get('users/about',[UserController::class,'about'])->name('users.about');
+Route::get('users/{id}/selectpayment',[SelectpaymentController::class,'selectpayment'])->name('users.selectpayment');
+Route::post('users/{id}/store',[SelectpaymentController::class,'store'])->name('users.store');
+
+
+
+
+Route::post('users/{id}/store', [BooksController::class, 'stores'])->name('users.stores');
+
+Route::get('/book/success', [BooksController::class, 'success'])->name('book.success');
+Route::get('/book/failure', [BooksController::class, 'failure'])->name('book.failure');
+
+Route::get('users/pay', [BooksController::class, 'index'])->name('users.pay');
+
 });
 
 

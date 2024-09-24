@@ -1,75 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Roomkhoj.com</title>
-    <!-- Link to CSS -->
-    <link rel="stylesheet" href="style.css">
-    <!-- Box Icons -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-</head>
-
-<body class="font-sans bg-gray-100 text-gray-900">
-    <!-- Navbar -->
-    <header class="bg-cyan-600 shadow-lg">
-    <div class="container mx-auto flex items-center justify-between py-2">
-        <a href="{{route('users.index')}}" class="flex flex-col items-center">
-            <img src="{{asset('img/logo.png')}}" alt="RoomKhoj Logo" class="h-14 w-14 rounded-full border-2 border-white shadow-lg"> <!-- Smaller logo size -->
-            <span class="mt-1 text-lg font-bold text-white">RoomKhoj</span> <!-- Logo text adjusted -->
-        </a>
-        <nav>
-            <ul class="flex gap-8">
-                <li><a href="#home" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Home</a></li> <!-- Increased text size -->
-                <li><a href="/about" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">About Us</a></li>
-                <li><a href="#sales" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Rents</a></li>
-                <li><a href="#properties" class="text-white font-semibold text-lg hover:text-gray-200 transition duration-300">Rooms</a></li>
-            </ul>
-        </nav>
-
-            <div class="relative inline-block text-left">
-                <!-- Dropdown trigger image -->
-                <img id="dropdownDefaultButton" src="path/to/your/image.jpg" alt="Dropdown trigger" class="cursor-pointer w-10 h-10 rounded-full mr-8">
-
-                <!-- Dropdown menu -->
-                <div id="dropdown" class="absolute left-0 mt-2 z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-44 dark:bg-gray-700">
-                    <ul class="py-2 text-sm text-gray-700 dark:text-gray-200" aria-labelledby="dropdownDefaultButton">
-                        <li>
-                            <a href="{{ route('users.profile',['id' => $user->id]) }}" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Profile</a>
-                        </li>
-                        <li>
-                            <a href="#" class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Rooms</a>
-                        </li>
-                        <li>
-                            <form action="{{ route('logout') }}" method="post">
-                                @csrf
-                                <button class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Logout</button>
-                            </form>
-                        </li>
-                    </ul>
-                </div>
-            </div>
-
-            <script>
-                document.getElementById('dropdownDefaultButton').addEventListener('click', function() {
-                    var dropdown = document.getElementById('dropdown');
-                    dropdown.classList.toggle('hidden');
-                });
-
-                // Optional: Hide the dropdown when clicking outside
-                document.addEventListener('click', function(event) {
-                    var dropdownButton = document.getElementById('dropdownDefaultButton');
-                    var dropdown = document.getElementById('dropdown');
-                    if (!dropdownButton.contains(event.target) && !dropdown.contains(event.target)) {
-                        dropdown.classList.add('hidden');
-                    }
-                });
-            </script>
-        </div>
-    </header>
+@extends('layouts.user')
+@section('content')
 
     <section class="properties container mx-auto py-10" id="properties">
     @if($rooms->isNotEmpty())
@@ -96,6 +26,4 @@
     @endif
 </section>
 
-</body>
-
-</html>
+@endsection

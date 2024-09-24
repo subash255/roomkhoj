@@ -1,4 +1,4 @@
-@extends('layouts.app')
+@extends('layouts.user')
 @section('content')
 
     <h2 class="font-bold text-3xl text-amber-600">Edit User</h2>

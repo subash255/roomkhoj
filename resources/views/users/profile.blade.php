@@ -1,13 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>User Profile</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-</head>
+@extends('layouts.user')
+@section('content')
 
 <body class="bg-gray-100">
     <!-- Header -->
@@ -38,6 +30,4 @@
             <a href="{{ route('users.index') }}" class="inline-block py-2 px-6 bg-gray-300 text-gray-700 rounded-full hover:bg-gray-400 transition-colors duration-200 shadow-md">Back</a>
         </div>
     </div>
-</body>
-
-</html>
+    @endsection

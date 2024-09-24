@@ -3,6 +3,7 @@ namespace App\Models\User;
 
 namespace App\Http\Controllers;
 
+use App\Models\books;
 use App\Models\Rooms;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -19,22 +20,27 @@ class UserController extends Controller
     public function about()
     {
         $user=Auth::user();
-        return view('about',compact('user'));
+        return view('users.about',compact('user'));
     }
 
     public function book($id)
     {
-        $user=Auth::user();
-        // Fetch the specific room by ID
-        $room = Rooms::findOrFail($id); // Using findOrFail to handle non-existing rooms
+        
+        $user = Auth::user();
 
+        // Fetch the specific room by ID
+        $room = Rooms::findOrFail($id);
+    
         // Fetch related rooms based on the same location, excluding the current room
         $relatedRooms = Rooms::where('name', $room->name)
                              ->where('id', '!=', $id)
                              ->get();
-
-        // Return the booking view with the room and related rooms data
-        return view('users.book', compact('user','room', 'relatedRooms'));
+    
+        // You can either fetch or create a book record for this room and user
+        $book = Books::where('room_id', $room->id)->where('user_id', $user->id)->first();
+    
+        // Return the booking view with the room, related rooms, and specific book data
+        return view('users.book', compact('user', 'room', 'relatedRooms', 'book'));
     }
     
     public function profile($id)
