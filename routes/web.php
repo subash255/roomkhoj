@@ -79,7 +79,7 @@ Route::post('users/{id}/store',[SelectpaymentController::class,'store'])->name('
 
 
 
-Route::post('users/{id}/store', [BooksController::class, 'stores'])->name('users.stores');
+Route::post('users/{id}/stores', [BooksController::class, 'stores'])->name('users.stores');
 
 Route::get('/book/success', [BooksController::class, 'success'])->name('book.success');
 Route::get('/book/failure', [BooksController::class, 'failure'])->name('book.failure');

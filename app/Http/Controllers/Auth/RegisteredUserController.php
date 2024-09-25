@@ -38,30 +38,28 @@ class RegisteredUserController extends Controller
             'photopath' => 'required|image',
             'dob' => 'required',
             'phonenumber' => 'required',
-
         ]);
-
-
-
+        
+        // Handle the file upload first
+        $photoname = time() . '.' . $request->photopath->extension();
+        $request->photopath->move(public_path('image/users'), $photoname);
+        
+        // Create the user after file is moved
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'photopath' => $request->photopath,
+            'photopath' => $photoname, // Store the correct photo file name
             'dob' => $request->dob,
             'phonenumber' => $request->phonenumber,
-
-
         ]);
-        $photoname = time() . '.' . $request->photopath->extension();
-        $request->photopath->move(public_path('image/rooms'), $photoname);
-        $user['photopath'] = $photoname;
-
+        
+        // Fire event and authenticate the user
         event(new Registered($user));
-
-
         Auth::login($user);
-
+        
+        // Redirect to the desired page after registration
         return redirect(route('login', absolute: false));
-    }
+        
+}
 }

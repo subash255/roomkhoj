@@ -9,40 +9,43 @@ use Illuminate\Support\Facades\Auth;
 
 class SelectpaymentController extends Controller
 {
-    public function store(Request $request, $id)
-    {
-        // Validate the incoming request
-        $data = $request->validate([
-            'room_id' => 'required|exists:rooms,id', // Check if room_id exists in the rooms table
-        ]);
-    
-        // Fetch the room details using the provided room_id
-        $room = Rooms::findOrFail($data['room_id']); // Make sure the room exists
-        $user = auth()->user(); // Get the authenticated user
-    
-        // Prepare the data to be stored in the cart
-        $selectpaymentdata = [
-            'user_id' => $user->id, // User ID
-            'name' => $user->name,  // User name
-            'email' => $user->email, // User email
-            'room_id' => $room->id, // Room ID
-            'room_name' => $room->name, // Room name
-            'price' => $room->price, // Room price
-            'photopath' => $room->photopath, // Room photo path
-        ];
-    
-        // Check if the room is already in the user's cart
-        $check = Selectpayment::where('user_id', $user->id)
-                     ->where('room_id', $room->id)
-                     ->first();
-    
-        
-        // Create the cart entry
-        Selectpayment::create($selectpaymentdata);
-    
-        // Redirect back with success message
-        return redirect()->route('users.selectpayment', ['id' => $room->id]);
+    public function store(Request $request)
+{
+    // Validate the incoming request
+    $data = $request->validate([
+        'room_id' => 'required|exists:rooms,id', // Ensure room_id exists in the rooms table
+    ]);
+
+    // Fetch the room details using the provided room_id
+    $room = Rooms::findOrFail($data['room_id']); // Ensure the room exists
+    $user = auth()->user(); // Get the authenticated user
+
+    // Prepare data for payment selection
+    $selectpaymentdata = [
+        'user_id' => $user->id, // User ID
+        'name' => $user->name,  // User name
+        'email' => $user->email, // User email
+        'room_id' => $room->id, // Room ID
+        'room_name' => $room->name, // Room name
+        'price' => $room->price, // Room price
+        'photopath' => $room->photopath, // Room photo path
+    ];
+
+    // Create the cart entry
+    $created = Selectpayment::create($selectpaymentdata);
+
+    // Check if data is created successfully
+    if ($created) {
+        return redirect()->route('users.selectpayment', ['id' => $room->id])
+                         ->with('success', 'Room successfully added.');
+    } else {
+        return redirect()->back()->with('error', 'Failed to add room to the cart.');
     }
+}
+
+
+
+    
     
 
     public function selectpayment($id)
@@ -58,7 +61,9 @@ class SelectpaymentController extends Controller
 
         // Fetch the currently selected room
         $room = Rooms::findOrFail($id); // Use findOrFail to ensure the room exists
-        $selectpayments = Selectpayment::where('user_id', $user->id)->get();
+        $selectpayments = Selectpayment::where('user_id', $user->id)
+        ->where('room_id', $room->id) // Assuming you have the $roomId variable defined
+        ->get();
        
 
         return view('users.selectpayment', compact('user', 'selectpayments', 'paymentMethods', 'room'));

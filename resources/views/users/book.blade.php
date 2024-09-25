@@ -11,40 +11,35 @@
 
     <!-- Room Information Section -->
     <section class="container mx-auto mt-10 px-6">
-        
-         <div class="bg-white rounded-lg shadow-lg overflow-hidden md:flex">
-             <div class="w-full md:w-1/2">
-                <img src="{{ asset('image/rooms/' . $room->photopath) }}" alt="Room Image" class="w-full h-full object-cover">
-            
-             </div>
-            
+    <div class="bg-white rounded-lg shadow-lg overflow-hidden md:flex">
+        <div class="w-full md:w-1/2">
+            <img src="{{ asset('image/rooms/' . $room->photopath) }}" alt="Room Image" class="w-full h-full object-cover">
+        </div>
         <div class="p-6 md:w-1/2">
-             
-                <p class="text-lg mb-2">Room No: <span class="font-semibold">{{ $room->room_no }}</span></p>
-                <p class="text-lg mb-2">Price: <span class="text-green-500 font-semibold">RS{{ $room->price }}</span></p>
-                <p class="text-lg mb-2">Location: {{ $room->name }}</p>
-                <p class="text-lg mb-2">Availability: <span class="{{ $room->stock > 0 ? 'text-green-500' : 'text-red-500' }}">{{ $room->stock > 0 ? 'Available' : 'Out of Stock' }}</span></p>
-                
-                <h4 class="text-xl font-semibold mt-4">Description</h4>
-                <p class="mt-2 text-gray-700">{{ $room->description }}</p>
-                
-                
-                <div class="mt-6">
-                <form action="{{ route('users.store',['id' => $room->id]) }}" method="POST">
-                    @csrf
-                    <!-- Pass the room_id in a hidden input -->
-                    <input type="hidden" name="room_id" value="{{ $room->id }}">
+            <p class="text-lg mb-2">Room No: <span class="font-semibold">{{ $room->room_no }}</span></p>
+            <p class="text-lg mb-2">Price: <span class="text-green-500 font-semibold">RS{{ $room->price }}</span></p>
+            <p class="text-lg mb-2">Location: {{ $room->name }}</p>
+            <p class="text-lg mb-2">Availability: <span class="{{ $room->stock > 0 ? 'text-green-500' : 'text-red-500' }}">{{ $room->stock > 0 ? 'Available' : 'Out of Stock' }}</span></p>
+            
+            <h4 class="text-xl font-semibold mt-4">Description</h4>
+            <p class="mt-2 text-gray-700">{{ $room->description }}</p>
 
+            <div class="mt-6">
+                <form action="{{ route('users.store', $room->id) }}" method="POST">
+                    @csrf
+                    <!-- Hidden input to pass the room ID -->
+                    <input type="hidden" name="room_id" value="{{ $room->id }}">
+                    
                     <!-- Submit Button -->
                     <button type="submit" class="bg-gradient-to-r from-green-400 to-blue-500 text-white px-6 py-2 rounded-lg hover:from-green-500 hover:to-blue-600 transition ease-in-out duration-300">
                         Book Now
                     </button>
                 </form>
-                </div>
             </div>
         </div>
+    </div>
+</section>
 
-    </section>
 
     <!-- Related Rooms -->
     <h1 class="text-3xl font-bold text-center mt-10">Related Rooms</h1>
