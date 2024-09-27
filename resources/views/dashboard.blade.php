@@ -36,81 +36,90 @@
         </div>
     </div>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mt-12">
-        <!-- Pie Chart -->
-        <div class="bg-white p-6 shadow-lg rounded-lg">
-            <h3 class="font-bold text-2xl text-gray-700 mb-4">Room Availability</h3>
-            <canvas id="pieChart"></canvas>
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mt-10">
+        <!-- Booking Trends (Line Chart) -->
+        <div class="card bg-white shadow-md rounded-lg p-4">
+            <h3 class="font-bold text-lg text-gray-800 mb-4">Booking Trends</h3>
+            <canvas id="line-chart" class="chart-canvas" height="300px"></canvas>
         </div>
 
-        <!-- Bar Chart -->
-        <div class="bg-white p-6 shadow-lg rounded-lg">
-            <h3 class="font-bold text-2xl text-gray-700 mb-4">User Growth</h3>
-            <canvas id="barChart"></canvas>
+        <!-- Total Visits per Day (Pie Chart) -->
+        <div class="card bg-white shadow-md rounded-lg p-4">
+            <h3 class="font-bold text-lg text-gray-800 mb-4">Total Visits Per Day</h3>
+            <canvas id="pie-chart" class="chart-canvas" height="300px"></canvas>
         </div>
     </div>
 
-@endsection
-
-@section('scripts')
-    <!-- Chart.js CDN -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
-        // Pass PHP data directly as a JavaScript variable
-        var availableRooms = {{ $availableRooms }};
-        var bookedRooms = {{ $bookedRooms }};
-        var monthlyUserGrowth = @json($monthlyUserGrowth);
-
-        // Pie Chart Configuration
-        var pieCtx = document.getElementById('pieChart').getContext('2d');
-        var pieChart = new Chart(pieCtx, {
-            type: 'pie',
-            data: {
-                labels: ['Available Rooms', 'Booked Rooms'],
-                datasets: [{
-                    label: 'Room Availability',
-                    data: [availableRooms, bookedRooms],
-                    backgroundColor: ['#22c55e', '#ef4444'],
-                    hoverBackgroundColor: ['#16a34a', '#dc2626']
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        position: 'top',
-                    }
-                }
-            }
-        });
-
-        // Bar Chart Configuration
-        var barCtx = document.getElementById('barChart').getContext('2d');
-        var barChart = new Chart(barCtx, {
-            type: 'bar',
-            data: {
-                labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'], // Modify the labels as needed
-                datasets: [{
-                    label: 'New Users',
-                    data: monthlyUserGrowth,
-                    backgroundColor: '#3b82f6',
-                    hoverBackgroundColor: '#1d4ed8',
-                }]
-            },
-            options: {
-                responsive: true,
-                plugins: {
-                    legend: {
-                        display: false,
+    // Line Chart for Booking Trends
+    const ctxLine = document.getElementById('line-chart').getContext('2d');
+    const monthlyUserGrowth = @json($monthlyUserGrowth);
+    const lineChart = new Chart(ctxLine, {
+        type: 'line',
+        data: {
+            labels: Object.keys(monthlyUserGrowth), // Months as labels
+            datasets: [{
+                label: 'Bookings',
+                data: Object.values(monthlyUserGrowth), // Monthly growth data
+                backgroundColor: 'rgba(75, 192, 192, 0.2)',
+                borderColor: 'rgba(75, 192, 192, 1)',
+                borderWidth: 2,
+                fill: true
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    grid: {
+                        color: 'rgba(200, 200, 200, 0.5)'
                     }
                 },
-                scales: {
-                    y: {
-                        beginAtZero: true
+                x: {
+                    grid: {
+                        color: 'rgba(200, 200, 200, 0.5)'
                     }
                 }
             }
-        });
-    </script>
+        }
+    });
 
+    // Pie Chart for Total Visits Per Day
+    const ctxPie = document.getElementById('pie-chart').getContext('2d');
+    const visitedUsersPerDay = @json($visitedUsersPerDay);
+    const pieChart = new Chart(ctxPie, {
+        type: 'pie',
+        data: {
+            labels: Object.keys(visitedUsersPerDay), // Dates as labels
+            datasets: [{
+                label: 'Visits',
+                data: Object.values(visitedUsersPerDay), // Visits per day data
+                backgroundColor: [
+                    'rgba(255, 99, 132, 0.6)',
+                    'rgba(54, 162, 235, 0.6)',
+                    'rgba(255, 206, 86, 0.6)',
+                    'rgba(75, 192, 192, 0.6)'
+                ],
+                borderColor: [
+                    'rgba(255, 99, 132, 1)',
+                    'rgba(54, 162, 235, 1)',
+                    'rgba(255, 206, 86, 1)',
+                    'rgba(75, 192, 192, 1)'
+                ],
+                borderWidth: 2
+            }]
+        },
+        options: {
+            responsive: true,
+            plugins: {
+                legend: {
+                    position: 'top',
+                },
+            }
+        }
+    });
+</script>
+
+   
 @endsection

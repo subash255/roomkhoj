@@ -40,7 +40,7 @@
             <h1 class="text-3xl font-bold mb-6 text-center">Select Payment Method</h1>
 
             <!-- Payment Method Selection -->
-            <form action="{{ route('users.store', $room->id) }}" method="POST">
+            <form action="{{ route('users.stores', $room->id) }}" method="POST">
                 @csrf
                 <h2 class="text-2xl font-semibold mb-4">Choose a Payment Method</h2>
                 <div class="flex flex-col space-y-4">
