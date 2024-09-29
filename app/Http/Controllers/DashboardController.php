@@ -1,43 +1,61 @@
 <?php
 
-namespace App\Models\User;
-
 namespace App\Http\Controllers;
 
+use App\Models\books;
 use App\Models\Rooms;
 use App\Models\User;
-use Illuminate\Support\Facades\Auth;
-
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
     public function index()
     {
-      // User and Room statistics
-$totalUsers = User::count();
-$totalRooms = Rooms::count();
-$availableRooms = Rooms::where('status', 'available')->count(); // Assuming 'status' is a column
-$bookedRooms = $totalRooms - $availableRooms;
-$pendingRequests = Rooms::where('status', 'pending')->count(); // Example for pending requests
-$totalVisits = 30000;
+        // User and Room statistics
+        $totalUsers = User::count();
+        $totalRooms = Rooms::count();
+        $availableRooms = Rooms::where('status', 'available')->count(); // Assuming 'status' is a column
+        $pendingRequests = Rooms::where('status', 'pending')->count(); // Example for pending requests
+        $totalVisits = 30000; // Example for total visits, adjust as necessary
 
-// Monthly user growth
-$monthlyUserGrowth = User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
-    ->groupBy('month')
-    ->orderBy('month')
-    ->pluck('count', 'month')->toArray();
+        // Monthly user growth
+        $monthlyUserGrowth = User::selectRaw('MONTH(created_at) as month, COUNT(*) as count')
+            ->groupBy('month')
+            ->orderBy('month')
+            ->pluck('count', 'month')->toArray();
 
-// Total visited users per day
-$visitedUsersPerDay = Rooms::selectRaw('DATE(created_at) as date, COUNT(*) as total_visits')
-    ->groupBy('date')
-    ->orderBy('date', 'desc')
-    ->pluck('total_visits', 'date')->toArray();
+        // Ensure the monthly data has all months represented (1 to 12)
+        $monthlyUserGrowth = array_replace(array_fill(1, 12, 0), $monthlyUserGrowth);
 
-// Pass all variables to the view
-return view('dashboard', compact(
-    'totalUsers','totalRooms','availableRooms','bookedRooms','pendingRequests','totalVisits','monthlyUserGrowth','visitedUsersPerDay'
-));
+        // Total visited users per day
+        $visitedUsersPerDay = Rooms::selectRaw('DATE(created_at) as date, COUNT(*) as total_visits')
+            ->groupBy('date')
+            ->orderBy('date', 'desc')
+            ->pluck('total_visits', 'date')->toArray();
+
+        // Pass all variables to the view
+        return view('dashboard', compact(
+            'totalUsers',
+            'totalRooms',
+            'availableRooms',
+            'pendingRequests',
+            'totalVisits',
+            'monthlyUserGrowth',
+            'visitedUsersPerDay'
+        ));
     }
 
+    public function notification()
+    {
+       $notifications = books::with('room', 'user')->where('status', 'booked')->get();
+
+        return view('notification' , compact('notifications'));
+       
+    }
+    public function view($id)
+    {
+        $notifications = books::with('room', 'user')->findOrFail($id);
+
+        return view('view', compact('notification',compact('notificcations') ));
+    }
 }

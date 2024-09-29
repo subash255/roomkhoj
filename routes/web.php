@@ -44,11 +44,14 @@ Route::get('/rooms/{id}/edit',[RoomController::class,'edit'])->name('rooms.edit'
 Route::post('/rooms/{id}/update',[RoomController::class,'update'])->name('rooms.update');
 Route::delete('/rooms/{id}',[RoomController::class,'delete'])->name('rooms.delete');
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
+Route::get('/notification',[DashboardController::class,'notification'])->name('notification');
+
 
 Route::get('/useradmin',[UseradminController::class,'index'])->name('useradmin.index');
 Route::get('useradmin/edit/{id}',[UseradminController::class,'edit'])->name('useradmin.edit');
 Route::post('useradmin/update/{id}',[UseradminController::class,'update'])->name('useradmin.update');
 Route::delete('/useradmin/{id}',[UseradminController::class,'delete'])->name('useradmin.delete');
+
 
 
 });
@@ -75,6 +78,8 @@ Route::get('users/moreroom',[UserController::class,'moreroom'])->name('users.mor
 Route::get('users/about',[UserController::class,'about'])->name('users.about');
 Route::get('users/{id}/selectpayment',[SelectpaymentController::class,'selectpayment'])->name('users.selectpayment');
 Route::post('users/{id}/store',[SelectpaymentController::class,'store'])->name('users.store');
+Route::get('users/room',[UserController::class,'booking'])->name('users.room');
+
 
 
 
