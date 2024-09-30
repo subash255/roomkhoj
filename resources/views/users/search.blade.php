@@ -2,7 +2,7 @@
 @section('content')
 <body class="bg-gray-50">
     <div class="container mx-auto py-12">
-        <h1 class="text-4xl font-bold text-center text-gray-800 mb-12">Rooms near {{ $name ?? 'your search' }}</h1>
+        <h1 class="text-4xl font-bold text-center text-gray-800 mb-12">Rooms Near {{ 'Your Search'}}</h1>
 
         <!-- Display Results -->
         <section class="properties container mx-auto" id="properties">
@@ -13,10 +13,10 @@
                         <img src="{{ asset('image/rooms/'.$property->photopath) }}" alt="room" class="w-full h-64 object-cover rounded-t-lg">
                         <div class="p-5">
                             <h2 class="text-2xl font-semibold text-gray-800 mb-2">Room No: {{ $property->room_no }}</h2>
-                            <p class="text-gray-600 mb-4">Located in: {{ $property->location }}</p>
+                            <p class="text-gray-600 mb-4">Located in: {{ $property->name }}</p>
                             <div class="flex justify-between items-center">
                                 <span class="text-xl font-semibold text-blue-500">Rs. {{ number_format($property->price) }}</span>
-                                <form action="{{ route('users.book', ['id' => $room->id]) }}" method="post">
+                                <form action="{{ route('users.book', ['id' => $property->id]) }}" method="post">
                             @csrf
                             <button class="bg-blue-500 text-white px-2 py-1 rounded-lg hover:bg-blue-600 transition duration-300">Rent</button>
                         </form></div>

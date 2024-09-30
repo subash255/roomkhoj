@@ -88,6 +88,8 @@ class UserController extends Controller
 
     public function search(Request $request)
     {
+        $user = Auth::user();
+
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'min_price' => 'nullable|integer|min:0',
@@ -121,7 +123,7 @@ class UserController extends Controller
 
         $properties = $query->get();
 
-        return view('users.search', compact('properties'));
+        return view('users.search', compact('properties','user'));
     }
 
     public function showroom()

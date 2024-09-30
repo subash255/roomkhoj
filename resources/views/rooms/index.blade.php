@@ -21,8 +21,8 @@
             <tbody>
             @foreach($rooms as $room)
                 <tr class="text-center">
+                    <td class="border p-3">{{$room->room_no}}</td>
                     <td class="border p-3">{{$room->name}}</td>
-                    <td class="border p-3">{{$room->place}}</td>
                     <td class="border p-3">{{$room->price}}</td>
                     <td class="border p-3">
                         <img src="{{asset('image/rooms/'.$room->photopath)}}" class="w-24" alt="">

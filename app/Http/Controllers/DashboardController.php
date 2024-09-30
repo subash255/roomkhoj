@@ -56,6 +56,6 @@ class DashboardController extends Controller
     {
         $notifications = books::with('room', 'user')->findOrFail($id);
 
-        return view('view', compact('notification',compact('notificcations') ));
+        return view('view',compact('notifications') );
     }
 }

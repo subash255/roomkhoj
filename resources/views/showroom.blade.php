@@ -32,7 +32,7 @@
     </header>
 
     <!-- Search for Rooms -->
-    <form action="{{ url('search') }}" method="GET" class="container mx-auto py-8 px-6 bg-white rounded-lg shadow-md">
+    <form action="{{ url('users/search') }}" method="GET" class="container mx-auto py-8 px-6 bg-white rounded-lg shadow-md">
     <h2 class="text-xl font-semibold text-center mb-4">Search for Rooms</h2>
 
     <div class="grid grid-cols-1 md:grid-cols-4 gap-4 items-end">

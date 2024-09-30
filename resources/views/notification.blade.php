@@ -18,7 +18,7 @@
                         <div class="flex justify-between items-center mt-4">
                             <span class="text-sm font-semibold text-blue-500">{{ $booking->created_at->diffForHumans() }}</span>
                         </div>
-                        <a href="{{ route('notifications.show', $booking->id) }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mt-4 block text-center">View Details</a>
+                        <a href="{{ route('view', $booking->id) }}" class="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition duration-300 mt-4 block text-center">View Details</a>
                     </div>
                 </div>
             @endforeach

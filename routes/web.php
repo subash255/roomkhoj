@@ -45,6 +45,8 @@ Route::post('/rooms/{id}/update',[RoomController::class,'update'])->name('rooms.
 Route::delete('/rooms/{id}',[RoomController::class,'delete'])->name('rooms.delete');
 Route::get('/dashboard',[DashboardController::class,'index'])->name('dashboard');
 Route::get('/notification',[DashboardController::class,'notification'])->name('notification');
+Route::get('notification/view/{id}',[DashboardController::class,'view'])->name('view');
+
 
 
 Route::get('/useradmin',[UseradminController::class,'index'])->name('useradmin.index');
@@ -72,7 +74,7 @@ Route::get('/room',[UserController::class,'room'])->name('users.room');
 Route::get('users/edit/{id}',[UserController::class,'edit'])->name('users.edit');
 Route::post('/update/{id}',[UserController::class,'update'])->name('users.update');
 Route::get('users/{id}/book',[UserController::class,'book'])->name('users.book');
-Route::post('users/search',[UserController::class,'search'])->name('users.search');
+Route::get('users/search',[UserController::class,'search'])->name('users.search');
 Route::get('users/showroom',[UserController::class,'showroom'])->name('users.showroom');
 Route::get('users/moreroom',[UserController::class,'moreroom'])->name('users.moreroom');
 Route::get('users/about',[UserController::class,'about'])->name('users.about');
