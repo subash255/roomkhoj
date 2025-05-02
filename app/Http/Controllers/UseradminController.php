@@ -28,10 +28,10 @@ class UseradminController extends Controller
     {
         // Validate incoming request data
         $data = $request->validate([
-            'name' => 'required|string|max:255',  // Name is required
+            'name' => 'required|string|max:255',  
             'email' => 'required|email|unique:users,email,' . $id,  // Email should be unique except for the current user
-            'photopath' => 'nullable|image|max:2048',  // Photo is optional, max size 2MB
-            'dob' => 'nullable|date',  // Optional date of birth
+            'photopath' => 'nullable|image|max:2048',  
+            'dob' => 'nullable|date', 
             'phonenumber' => 'nullable|string|max:15',  // Optional phone number
         ]);
 
