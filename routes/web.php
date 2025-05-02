@@ -69,6 +69,8 @@ Route::middleware('auth')->group(function () {
 Route::middleware(['auth'])->group(function () {
 Route::get('users/index',[UserController::class,'index'])->name('users.index');
 
+Route::get('users/profile/content',[UserController::class,'profileindex'])->name('users.profile.content');
+
 Route::get('users/profile/{id}',[UserController::class,'profile'])->name('users.profile');
 Route::get('/room',[UserController::class,'room'])->name('users.room');
 Route::get('users/edit/{id}',[UserController::class,'edit'])->name('users.edit');

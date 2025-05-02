@@ -11,8 +11,9 @@ class PageController extends Controller
     
         public function home()
         {
-            $rooms=Rooms::all()->take(6);
+            $rooms=Rooms::all()->take(6); //take only 6 data from database
             return view ('welcome', compact('rooms'));
+
         }
         public function about()
         {

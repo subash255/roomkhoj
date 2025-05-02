@@ -1,13 +1,15 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Registration Form</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
- 
+
 </head>
+
 <body class="bg-gray-100 flex items-center justify-center h-screen">
     <div class="bg-white rounded-lg shadow-lg max-w-4xl w-full overflow-hidden">
         <div class="md:flex">
@@ -23,46 +25,60 @@
             <div class="w-full md:w-1/2 p-8">
                 <h2 class="text-3xl font-bold text-purple-800 mb-4">Register</h2>
                 <form method="POST" action="{{ route('register') }}" enctype="multipart/form-data">
-                @csrf   
-                <div class="mb-4">
+                    @csrf
+                    <div class="mb-4">
+                        <label for="name">Name</label>
                         <input type="text" name="name" placeholder="First Name" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
                     </div>
                     @error('name')
                     <div class="text-red-500 mt-2 text-sm">
                         {{$message}}
                     </div>
-                @enderror
+                    @enderror
                     <div class="mb-4">
+                        <label for="name">Email</label>
                         <input type="email" name="email" placeholder="Email" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
                     </div>
                     @error('email')
                     <div class="text-red-500 mt-2 text-sm">
                         {{$message}}
                     </div>
-                @enderror
-                <div class="mb-4">
-        <input type="password" name="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required autocomplete="new-password">
-        @error('password')
-        <div class="text-red-500 mt-2 text-sm">
-            {{ $message }}
-        </div>
-        @enderror
-    </div>
-
-    <div class="mb-4">
-        <input type="password" name="password_confirmation" placeholder="Confirm Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required autocomplete="new-password">
-    </div>
-                    @error('password_confirmation')
+                    @enderror
+                    <div class="mb-4 flex gap-2">
+                        <div>
+                        <label for="name">Password</label>
+                        <input type="password" name="password" placeholder="Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required autocomplete="new-password">
+                        @error('password')
                         <div class="text-red-500 mt-2 text-sm">
                             {{ $message }}
                         </div>
                         @enderror
+                        </div>
+                        <div>
+                        <label for="name">confirm Password</label>
+                        <input type="password" name="password_confirmation" placeholder="Confirm Password" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500" required autocomplete="new-password">
+                        @error('password_confirmation')
+                        <div class="text-red-500 mt-2 text-sm">
+                            {{ $message }}
+                        </div>
+                        @enderror
+                        </div>
+                    </div>
 
-                    <div class="flex mb-4">
-                        <input type="text" name="phonenumber" placeholder="Phone Number" class="w-1/2 p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
-                        <input type="date" name="dob" placeholder="Date of Birth" class="w-1/2 p-3 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+
+
+
+                    <div class=" mb-4">
+                        <label for="name">Phonenumber</label>
+                        <input type="text" name="phonenumber" placeholder="Phone Number" class="w-full p-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
                     </div>
                     <div class="mb-4">
+                    <label for="name" >Date of Birth</label>
+                        <input type="date" name="dob" placeholder="Date of Birth" class="w-full p-3 border border-gray-300 rounded-r-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
+
+                    </div>
+                    <div class="mb-4">
+                        <label for="photopath" class="mt-40 ">Profile Picture</label>
                         <input type="file" name="photopath" placeholder="Photo" class="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500">
                     </div>
                     <div class="flex items-center mb-4">
@@ -74,6 +90,7 @@
             </div>
         </div>
     </div>
-   
+
 </body>
+
 </html>
