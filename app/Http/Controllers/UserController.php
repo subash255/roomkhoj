@@ -162,7 +162,7 @@ class UserController extends Controller
         // Fetch all bookings made by the user
         $rooms = books::where('user_id', $user->id)->with('room')->get();
 
-        // Pass the bookings to the view
+        
         return view('users.room', compact('user', 'rooms'));
     }
 }

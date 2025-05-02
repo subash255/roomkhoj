@@ -32,7 +32,7 @@ class UseradminController extends Controller
             'email' => 'required|email|unique:users,email,' . $id,  // Email should be unique except for the current user
             'photopath' => 'nullable|image|max:2048',  
             'dob' => 'nullable|date', 
-            'phonenumber' => 'nullable|string|max:15',  // Optional phone number
+            'phonenumber' => 'nullable|string|max:15',  
         ]);
 
         // Find the user by ID, if not found, return an error
@@ -41,7 +41,7 @@ class UseradminController extends Controller
             return redirect()->route('useradmin.index')->with('error', 'User not found.');
         }
 
-        // Check if a new image has been uploaded
+        
         if ($request->hasFile('photopath')) {
             // Create a unique filename for the new image
             $photoname = time() . '.' . $request->photopath->extension();
@@ -61,7 +61,7 @@ class UseradminController extends Controller
             $data['photopath'] = $user->photopath;
         }
 
-        // Update the user with the new data
+        
         $user->update($data);
 
         // Redirect to user admin index with a success message
