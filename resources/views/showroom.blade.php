@@ -84,7 +84,7 @@
                 <a href="{{ url('/moreroom?name=' . urlencode($name)) }}" class="text-blue-600 hover:underline font-medium">Show More</a>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-10 px-4">
-                @foreach($roomGroup->take(3) as $room)  <!-- Show only 3 rooms from the group -->
+                @foreach($roomGroup->take(3) as $room)  
                     <div class="bg-white rounded-lg shadow-lg transition-transform transform hover:scale-105 hover:shadow-xl overflow-hidden">
                         <img src="{{ asset('image/rooms/'.$room->photopath) }}" alt="Room {{ $room->room_no }}" class="w-full h-48 object-cover rounded-t-lg">
                         <div class="p-4">
