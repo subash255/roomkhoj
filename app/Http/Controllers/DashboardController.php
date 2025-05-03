@@ -54,7 +54,7 @@ class DashboardController extends Controller
     }
     public function view($id)
     {
-        $notifications = books::with('room', 'user')->findOrFail($id);
+        $notifications= books::with('room', 'user')->findOrFail($id);
 
         return view('view',compact('notifications') );
     }
