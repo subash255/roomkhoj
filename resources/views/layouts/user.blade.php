@@ -11,7 +11,7 @@
     <!-- Boxicons CDN -->
     <link href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css" rel="stylesheet">
 
-    <!-- Box Icons -->
+
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
