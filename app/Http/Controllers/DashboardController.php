@@ -15,7 +15,7 @@ class DashboardController extends Controller
         $totalUsers = User::count();
         $totalRooms = Rooms::count();
         $availableRooms = Rooms::where('status', 'available')->count(); // Assuming 'status' is a column
-        $pendingRequests = Rooms::where('status', 'pending')->count(); // Example for pending requests
+        $pendingRequests = Rooms::where('status', 'pending')->count(); 
         $totalVisits = 30000; // Example for total visits, adjust as necessary
 
         // Monthly user growth
