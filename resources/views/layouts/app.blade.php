@@ -36,7 +36,7 @@
                     <a href="{{route('notification')}}" class="text-xl block pl-4 p-2 m-2 border-b border-amber-600 hover:bg-amber-600 hover:text-white">Notification</a>
                    <form id="logout-form" method="post" action="{{route('logout')}}">
                     @csrf
-                   <a  href="{{route('logout')}}" onclick="event.preventDefault(); document.getElementById('logout-form').submit() "class="text-xl block pl-4 p-2 m-2 border-b border-amber-600 hover:bg-amber-600 hover:text-white  ">Logout</a>
+                   <a   onclick="event.preventDefault(); document.getElementById('logout-form').submit() "class="text-xl block pl-4 p-2 m-2 border-b border-amber-600 hover:bg-amber-600 hover:text-white  ">Logout</a>
 
                     </form>
                    
@@ -45,6 +45,7 @@
             <div class="p-4 flex-1">
                 
                 @yield('content')
+
             </div>
         </div>
     </body>
