@@ -135,7 +135,8 @@ class UserController extends Controller
         $user = Auth::user();  
 
         // Group rooms by name and filter only available ones
-        $rooms = Rooms::where('status', 'available')->get()->groupBy('name')->sortKeys();
+        $rooms = Rooms::where('status', 'available')
+        ->get()->groupBy('name')->sortKeys();
 
         $threeRooms = $rooms->flatMap(function ($roomGroup) {
             return $roomGroup->take(1); 
@@ -150,7 +151,8 @@ class UserController extends Controller
         $name = $request->input('name');
 
         // Fetch rooms based on location and availability
-        $rooms = Rooms::where('name', $name)->where('status', 'available')->get(); 
+        $rooms = Rooms::where('name', $name)
+        ->where('status', 'available')->get(); 
 
         return view('users.moreroom', compact('user', 'rooms', 'name'));
     }
